@@ -11,10 +11,11 @@ import {
   ButtonContainer,
   Handlers,
   Close,
-  MobileProfileIconContainer,
+  MobileProfileIconContainer,LogoutBtn,LogoutBtnMobile
 } from "./HeaderStyledComponents";
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [selectedNav, setSelectedNav] = useState("available");
@@ -79,6 +80,7 @@ const Header = () => {
               Learning Score
             </NavItem>
           </LinkItem>
+          <Link to="/"><LogoutBtnMobile>Logout</LogoutBtnMobile></Link>
         </NavContainer>
         <ProfileIconContainer>
           <h4>User</h4>
@@ -86,6 +88,7 @@ const Header = () => {
             src="https://i.pinimg.com/originals/d3/7b/02/d37b020e87945ad7f245e48df752ed03.jpg"
             alt="profile"
           />
+          <Link to="/"><LogoutBtn>Logout</LogoutBtn></Link>
         </ProfileIconContainer>
       </HeaderContainer>
     </>

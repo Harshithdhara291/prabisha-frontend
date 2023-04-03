@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { BallTriangle } from 'react-loader-spinner';
 
 import {
   LoginContainer,
@@ -13,7 +14,7 @@ import {
   Cont,
   Cont1,
   ButtonContainer,
-  Button,
+  Button,Loader
 } from "./RegisterStyledComponents";
 
 const Register = () => {
@@ -25,8 +26,18 @@ const Register = () => {
   const [phonenumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
   const history = useNavigate();
+  const [isLoading, setLoading] = useState(false);
+
+  const Loading = () => {
+    return (  
+      <Loader>
+        <BallTriangle color="#00BFFF" height={80} width={80} />
+      </Loader>
+    )
+  }
 
   const handleSubmit = async (event) => {
+    setLoading(true)
     event.preventDefault();
     const data = {
       firstname,
@@ -45,7 +56,7 @@ const Register = () => {
       const response = await axios.post(url, data);
       console.log(response.data);
       if (response.data.status === 200) {
-        alert("Registration Success");
+        setLoading(false)
         history("/lms-available");
       } else {
         alert("Registration  Failed");
@@ -56,6 +67,9 @@ const Register = () => {
     }
   };
   return (
+    <>
+    { isLoading ? Loading() :
+    (
     <LoginContainer>
       <LoginForm onSubmit={handleSubmit}>
         <Heading>Registration</Heading>
@@ -156,8 +170,10 @@ const Register = () => {
           </LinkItem>
         </ButtonContainer>
       </LoginForm>
-    </LoginContainer>
-  );
+    </LoginContainer>)
+}
+</>);
 };
+
 
 export default Register;
